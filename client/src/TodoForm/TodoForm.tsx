@@ -1,4 +1,6 @@
 // Component for adding a todo
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 import "./TodoForm.css";
 
 function TodoForm() {
@@ -6,28 +8,37 @@ function TodoForm() {
   const category = ["personal", "work"];
 
   return (
-    <form className="todoForm">
-      <div className="inputs">
-        {/* Enter todo */}
-        <label htmlFor="todo">Enter todo description</label>
-        <input type="text" id="todo"></input>
-        {/* Add priority */}
-        <label htmlFor="priority">Priority</label>
-        <select id="priority">
+    <Form className="todoForm">
+      {/* Enter todo */}
+      <Form.Group controlId="formTodo">
+        <Form.Label>Enter todo description</Form.Label>
+        <Form.Control type="text"></Form.Control>
+      </Form.Group>
+
+      {/* Add priority */}
+      <Form.Group>
+        <Form.Label htmlFor="priority">Priority</Form.Label>
+        <Form.Select id="priority">
           {priority.map((pri) => (
             <option value={pri}>{pri}</option>
           ))}
-        </select>
-        {/* Add category */}
-        <label htmlFor="category">Category</label>
-        <select id="category">
+        </Form.Select>
+      </Form.Group>
+
+      {/* Add category */}
+      <Form.Group>
+        <Form.Label htmlFor="category">Category</Form.Label>
+        <Form.Select id="category">
           {category.map((cat) => (
             <option value={cat}>{cat}</option>
           ))}
-        </select>
-      </div>
-      <button type="submit">Add to List</button>
-    </form>
+        </Form.Select>
+      </Form.Group>
+
+      <Button type="submit" variant="primary">
+        Add to List
+      </Button>
+    </Form>
   );
 }
 

@@ -10,6 +10,7 @@ Frontend - React & Typescript
 Backend - Node.js & Express
 Database - PostgreSQL
 Testing - React Testing Library, Nock & Cypress
+Styling - Bootstrap
 
 ## Steps
 
