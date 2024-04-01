@@ -1,0 +1,14 @@
+/* CSS file for todo form */
+
+.todoForm {
+  width: 50%;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputs label {
+  text-align: left;
+}

@@ -20,10 +20,11 @@ Testing - React Testing Library, Nock & Cypress
 
 - Create Frontend
 
-  - Create a form to add todo
+  - Create a form to add todo ✅
     - Description (todo)
     - Tag Priority ("high", "medium", "low")
     - Category ("work", "personal")
+    - Add to List button
   - Create a list to display todo
   - Create an edit button
   - Create a delete button
