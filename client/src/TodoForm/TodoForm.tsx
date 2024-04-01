@@ -6,15 +6,15 @@ import { ChangeEvent, useState } from "react";
 
 /* TODO 
   - create form (done)
-  - add useStates for each input
+  - add useStates for each input (done)
   - create function for add to list button
 */
 
 function TodoForm() {
   // Use States for form
   const [todo, setTodo] = useState("");
-  const [priority, setPriority] = useState("");
-  const [category, setCategory] = useState("");
+  const [selectedPriority, setSelectedPriority] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   // Priority and Category option arrays
   const priorityArr = ["high", "medium", "low"];
@@ -26,20 +26,19 @@ function TodoForm() {
     console.log(todo);
   }
 
-  // These function not working properly yet!!!
-  function handlePriorityChange(e: ChangeEvent<HTMLOptionElement>) {
+  function handlePriorityChange(e: ChangeEvent<HTMLSelectElement>) {
     e.preventDefault();
-    setPriority(e.target.value);
-    console.log(priority);
+    setSelectedPriority(e.target.value);
+    console.log(selectedPriority);
   }
-  function handleCategoryChange(e: ChangeEvent<HTMLOptionElement>) {
+  function handleCategoryChange(e: ChangeEvent<HTMLSelectElement>) {
     e.preventDefault();
-    setCategory(e.target.value);
-    console.log(category);
+    setSelectedCategory(e.target.value);
+    console.log(selectedCategory);
   }
 
   return (
-    <Form className="todoForm">
+    <Form className="todoForm" style={{ width: "50%" }}>
       {/* Enter todo */}
       <Form.Group controlId="formTodo">
         <Form.Label>Enter todo description</Form.Label>
@@ -49,9 +48,15 @@ function TodoForm() {
       {/* Add priority */}
       <Form.Group>
         <Form.Label htmlFor="priority">Priority</Form.Label>
-        <Form.Select id="priority">
+        <Form.Select
+          id="priority"
+          aria-label="Select Priority"
+          value={selectedPriority}
+          onChange={handlePriorityChange}
+        >
+          <option></option>
           {priorityArr.map((pri, index) => (
-            <option onChange={handlePriorityChange} key={index} value={pri}>
+            <option key={index} value={pri}>
               {pri}
             </option>
           ))}
@@ -61,9 +66,15 @@ function TodoForm() {
       {/* Add category */}
       <Form.Group>
         <Form.Label htmlFor="category">Category</Form.Label>
-        <Form.Select id="category">
+        <Form.Select
+          id="category"
+          aria-label="Select Category"
+          onChange={handleCategoryChange}
+          value={selectedCategory}
+        >
+          <option></option>
           {categoryArr.map((cat, index) => (
-            <option onChange={handleCategoryChange} key={index} value={cat}>
+            <option key={index} value={cat}>
               {cat}
             </option>
           ))}
