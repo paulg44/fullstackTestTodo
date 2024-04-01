@@ -16,7 +16,7 @@ Testing - React Testing Library, Nock & Cypress
 - Create Repository ✅
 - Create React App ✅
 - Set Up Server ✅
-- Create Backend Database Postgres
+- Create Backend Database Postgres ✅
 
 - Create Frontend
 
@@ -28,6 +28,14 @@ Testing - React Testing Library, Nock & Cypress
   - Create an edit button
   - Create a delete button
   - Mark as completed (all start uncompleted, false in database)
+
+- Create Database Table
+
+  - ID
+  - Todo
+  - Priority
+  - Category
+  - Completed (false)
 
 - Create backend
   - Create a GET request any todos in database and display them in list
