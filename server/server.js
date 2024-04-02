@@ -6,7 +6,7 @@ import pkg from "pg";
 import dotenv from "dotenv";
 // cross origin resource sharing
 import cors from "cors";
-import { todoRoutes } from "./Routes/routes.tsx";
+import { todoRoutes } from "./Routes/routes.js";
 
 dotenv.config();
 
@@ -30,7 +30,7 @@ export const pool = new Pool({
 app.use(express.json());
 app.use(cors());
 
-app.use("/api/allTodos", todoRoutes);
+app.use("/api/todo", todoRoutes);
 
 // Starts express application
 app.listen(port, () => {

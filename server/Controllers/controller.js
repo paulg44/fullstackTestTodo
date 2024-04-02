@@ -1,7 +1,7 @@
 // Controller handles the data received (requests responses) Manipulate data and send back to client
 
 // Import model function from model file
-import * as todoModel from "../Models/models.tsx";
+import * as todoModel from "../Models/models.js";
 
 // Function to control data received
 export async function getAllTodosController(req, res) {

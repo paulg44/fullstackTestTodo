@@ -3,7 +3,7 @@
 import express from "express";
 
 // Import controller from controller file
-import * as todoController from "../Controllers/controller.tsx";
+import * as todoController from "../Controllers/controller.js";
 
 // Create a route instance in built express Router
 export const todoRoutes = express.Router();
