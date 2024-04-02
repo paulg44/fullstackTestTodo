@@ -6,6 +6,7 @@ import pkg from "pg";
 import dotenv from "dotenv";
 // cross origin resource sharing
 import cors from "cors";
+import { todoRoutes } from "./Routes/routes.tsx";
 
 dotenv.config();
 
@@ -28,6 +29,8 @@ export const pool = new Pool({
 // app.use = middleware and gives access to res req, .json parses incoming requests
 app.use(express.json());
 app.use(cors());
+
+app.use("/api/allTodos", todoRoutes);
 
 // Starts express application
 app.listen(port, () => {
