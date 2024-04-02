@@ -2,6 +2,7 @@ import React from "react";
 
 import "./App.css";
 import TodoForm from "./TodoForm/TodoForm";
+import DisplayTodos from "./DisplayTodos/DisplayTodos";
 
 /* TODO 
   - create form and add to app (done)
@@ -12,6 +13,7 @@ function App() {
   return (
     <div className="App">
       <TodoForm />
+      <DisplayTodos />
     </div>
   );
 }
