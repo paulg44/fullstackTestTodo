@@ -17,23 +17,44 @@ function DisplayTodos() {
   const [todosData, setTodosData] = useState<Todo[]>([]);
 
   // Retrieve all todo's from database ## IM RECEIVING THE INDEX.TSX FILE INSTEAD OF DATA ##
+  // useEffect(() => {
+  //   // Asynchronous function to fetch all todo's
+  //   const fetchAllTodos = async () => {
+  //     try {
+  //       // Fetch all todo's from server and store in variable
+  //       const todoResponse = await fetch("/api/todo");
+  //       console.log(todoResponse);
+  //       const text = await todoResponse.text();
+  //       console.log(text);
+  //       // Convert response to json
+  //       const parsedResponse = await JSON.parse(text);
+
+  //       const allTodos = parsedResponse.rows;
+  //       // set "todos" to json response
+  //       setTodosData(allTodos);
+  //       // Error message
+  //     } catch (error) {
+  //       console.error("Error fetching data", error);
+  //     }
+  //   };
+  //   // Call function to fetch all todo's when component mounts
+  //   fetchAllTodos();
+  // }, []);
+
+  // This should fetch api but doesn't, above works?
+
   useEffect(() => {
-    // Asynchronous function to fetch all todo's
     const fetchAllTodos = async () => {
       try {
-        // Fetch all todo's from server and store in variable
-        const todoResponse = await fetch("/api");
+        const todoResponse = await fetch("/api/todo");
         console.log(todoResponse);
-        // Convert response to json
-        const allTodos = await todoResponse.json();
-        // set "todos" to json response
-        setTodosData(allTodos);
-        // Error message
+        const todoData = await todoResponse.json();
+        console.log(todoData);
+        setTodosData(todoData);
       } catch (error) {
         console.error("Error fetching data", error);
       }
     };
-    // Call function to fetch all todo's when component mounts
     fetchAllTodos();
   }, []);
 
