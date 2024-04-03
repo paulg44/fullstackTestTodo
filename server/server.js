@@ -30,7 +30,7 @@ export const pool = new Pool({
 app.use(express.json());
 app.use(cors());
 
-app.use("/api/todo", todoRoutes);
+app.use("/api", todoRoutes);
 
 // Starts express application
 app.listen(port, () => {

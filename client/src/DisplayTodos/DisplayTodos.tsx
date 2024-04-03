@@ -4,16 +4,26 @@ import { Container, Table } from "react-bootstrap";
 import { useState, useEffect } from "react";
 
 function DisplayTodos() {
-  // State for todos
-  const [todosData, setTodosData] = useState("");
+  // Types for incoming todo's from database
+  interface Todo {
+    id: number;
+    todo: string;
+    priority: string;
+    category: string;
+    completed: boolean;
+  }
 
-  // Retrieve all todo's from database
+  // State for todos
+  const [todosData, setTodosData] = useState<Todo[]>([]);
+
+  // Retrieve all todo's from database ## IM RECEIVING THE INDEX.TSX FILE INSTEAD OF DATA ##
   useEffect(() => {
     // Asynchronous function to fetch all todo's
     const fetchAllTodos = async () => {
       try {
         // Fetch all todo's from server and store in variable
-        const todoResponse = await fetch("/api/todo");
+        const todoResponse = await fetch("/api");
+        console.log(todoResponse);
         // Convert response to json
         const allTodos = await todoResponse.json();
         // set "todos" to json response
