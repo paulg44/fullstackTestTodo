@@ -16,41 +16,17 @@ function DisplayTodos() {
   // State for todos
   const [todosData, setTodosData] = useState<Todo[]>([]);
 
-  // Retrieve all todo's from database ## IM RECEIVING THE INDEX.TSX FILE INSTEAD OF DATA ##
-  // useEffect(() => {
-  //   // Asynchronous function to fetch all todo's
-  //   const fetchAllTodos = async () => {
-  //     try {
-  //       // Fetch all todo's from server and store in variable
-  //       const todoResponse = await fetch("/api/todo");
-  //       console.log(todoResponse);
-  //       const text = await todoResponse.text();
-  //       console.log(text);
-  //       // Convert response to json
-  //       const parsedResponse = await JSON.parse(text);
-
-  //       const allTodos = parsedResponse.rows;
-  //       // set "todos" to json response
-  //       setTodosData(allTodos);
-  //       // Error message
-  //     } catch (error) {
-  //       console.error("Error fetching data", error);
-  //     }
-  //   };
-  //   // Call function to fetch all todo's when component mounts
-  //   fetchAllTodos();
-  // }, []);
-
-  // This should fetch api but doesn't, above works?
-
+  //  Retrieve all todo's from database using a useEffect
   useEffect(() => {
     const fetchAllTodos = async () => {
       try {
-        const todoResponse = await fetch("/api/todo");
+        // Set a variable sending a fetch request to the api and store in. The .then then returns the stored variable in json format
+        const todoResponse = await fetch("/api/todo").then((todoResponse) => {
+          return todoResponse.json();
+        });
         console.log(todoResponse);
-        const todoData = await todoResponse.json();
-        console.log(todoData);
-        setTodosData(todoData);
+
+        setTodosData(todoResponse);
       } catch (error) {
         console.error("Error fetching data", error);
       }
@@ -82,7 +58,7 @@ function DisplayTodos() {
               <td>{todo.todo}</td>
               <td>{todo.priority}</td>
               <td>{todo.category}</td>
-              <td>{todo.completed}</td>
+              <td>{todo.completed ? "Yes" : "No"}</td>
             </tr>
           ))}
       </tbody>
