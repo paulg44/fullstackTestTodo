@@ -1,0 +1,9 @@
+/* CSS file for displaying todo's */
+
+.priorityhigh {
+  background-color: red;
+}
+
+.prioritylow {
+  background-color: green;
+}

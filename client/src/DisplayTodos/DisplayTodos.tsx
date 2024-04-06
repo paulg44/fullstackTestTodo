@@ -1,5 +1,6 @@
 // Component for displaying todo's
 
+import "./DisplayTodos.css";
 import { Container, Table } from "react-bootstrap";
 import { useState, useEffect } from "react";
 
@@ -35,34 +36,39 @@ function DisplayTodos() {
   }, []);
 
   return (
-    // <Container>
-    //   <h2>Todo List</h2>
-    //   <ul>
-    //     {Array.isArray(todos) &&
-    //       todos.map((todo) => <li key={todo.id}>{todo.description}</li>)}
-    //   </ul>
-    // </Container>
-    <Table>
-      <thead>
-        <tr>
-          <th>Description</th>
-          <th>Priority</th>
-          <th>Category</th>
-          <th>Completed</th>
-        </tr>
-      </thead>
-      <tbody>
+    <Container>
+      <h2>Todo List</h2>
+      <ul>
         {Array.isArray(todosData) &&
           todosData.map((todo) => (
-            <tr key={todo.id}>
-              <td>{todo.todo}</td>
-              <td>{todo.priority}</td>
-              <td>{todo.category}</td>
-              <td>{todo.completed ? "Yes" : "No"}</td>
-            </tr>
+            <li key={todo.id} className={`priority${todo.priority}`}>
+              {todo.todo}
+              <button type="button">X</button>
+            </li>
           ))}
-      </tbody>
-    </Table>
+      </ul>
+    </Container>
+    // <Table>
+    //   <thead>
+    //     <tr>
+    //       <th>Description</th>
+    //       <th>Priority</th>
+    //       <th>Category</th>
+    //       <th>Completed</th>
+    //     </tr>
+    //   </thead>
+    //   <tbody>
+    //     {Array.isArray(todosData) &&
+    //       todosData.map((todo) => (
+    //         <tr key={todo.id}>
+    //           <td>{todo.todo}</td>
+    //           <td>{todo.priority}</td>
+    //           <td>{todo.category}</td>
+    //           <td>{todo.completed ? "Yes" : "No"}</td>
+    //         </tr>
+    //       ))}
+    //   </tbody>
+    // </Table>
   );
 }
 
