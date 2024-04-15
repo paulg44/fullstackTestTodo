@@ -10,3 +10,6 @@ export const todoRoutes = express.Router();
 
 //  Define route for getting all todo's
 todoRoutes.get("/", todoController.getAllTodosController);
+
+// Route for adding a todo to database
+todoRoutes.post("/", todoController.addTodoController)

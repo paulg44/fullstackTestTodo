@@ -22,3 +22,16 @@ export async function getAllTodosController(req, res) {
       .json({ error: "Internal server error", details: error.message });
   }
 }
+
+// Add todo to list
+export async function addTodoController(req, res) {
+  try {
+    const data = req.body
+    const addNewTodo = await todoModel.addTodo(data)
+    console.log(`Success, payload ${addNewTodo.rows}`)
+    res.status(200).json(addNewTodo.rows)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({error: "Internal server error"})
+  }
+}

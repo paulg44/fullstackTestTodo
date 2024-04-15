@@ -2,7 +2,7 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "./TodoForm.css";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, FormEventHandler, useState } from "react";
 
 /* TODO 
   - create form (done)
@@ -12,7 +12,7 @@ import { ChangeEvent, useState } from "react";
 
 function TodoForm() {
   // Use States for form
-  const [todo, setTodo] = useState("");
+  const [entertodo, setEnterTodo] = useState("");
   const [selectedPriority, setSelectedPriority] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
 
@@ -22,8 +22,7 @@ function TodoForm() {
 
   function handleTodoChange(e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
-    setTodo(e.target.value);
-    console.log(todo);
+    setEnterTodo(e.target.value);
   }
 
   function handlePriorityChange(e: ChangeEvent<HTMLSelectElement>) {
@@ -37,8 +36,27 @@ function TodoForm() {
     console.log(selectedCategory);
   }
 
+  async function handleAddNewTodo(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+
+    const addNewTodoToDatabase = {
+      todo: entertodo,
+      priority: selectedPriority,
+      category: selectedCategory
+    }
+
+    await fetch("api/todo", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(addNewTodoToDatabase)
+    })
+    console.log(`Successfully added new todo`)
+  }
+
   return (
-    <Form className="todoForm" style={{ width: "50%" }}>
+    <Form className="todoForm" style={{ width: "50%" }} onSubmit={handleAddNewTodo}>
       {/* Enter todo */}
       <Form.Group controlId="formTodo">
         <Form.Label>Enter todo description</Form.Label>

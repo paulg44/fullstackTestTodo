@@ -20,3 +20,20 @@ export async function getAllTodos() {
     throw error;
   }
 }
+
+
+// Function to add a todo to the database
+export async function addTodo(body, enterTodo, selectedPriority, selectedCategory) {
+  const {todo, priority, category} = body
+
+  try {
+    const client = await pool.connect()
+    const addTodoQuery = (await client.query(`INSERT INTO todos (todo, priority, category) VALUES ($1, $2, $3)`, [todo, priority, category]))
+  
+  client.release()
+  return addTodoQuery
+  } catch (error) {
+    console.error("Error adding todo:", error)
+    throw error
+  }
+}
