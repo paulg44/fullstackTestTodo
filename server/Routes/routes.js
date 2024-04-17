@@ -13,3 +13,6 @@ todoRoutes.get("/", todoController.getAllTodosController);
 
 // Route for adding a todo to database
 todoRoutes.post("/", todoController.addTodoController)
+
+// Route for removing todo
+todoRoutes.delete("/:id", todoController.removeTodoController)

@@ -35,3 +35,16 @@ export async function addTodoController(req, res) {
     res.status(500).json({error: "Internal server error"})
   }
 }
+
+// Remove todo from list 
+export async function removeTodoController(req, res) {
+  try {
+    // Was stuck on this for a little while, needed to require the parameter of id to specifically point to the todo that wants deleting
+    const todoId = req.params.id
+     const removeTodoFromList = await todoModel.removeTodo(todoId)
+     res.status(200).json(removeTodoFromList)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({error: "Internal server error"})
+  }
+}

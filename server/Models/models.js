@@ -23,7 +23,7 @@ export async function getAllTodos() {
 
 
 // Function to add a todo to the database
-export async function addTodo(body, enterTodo, selectedPriority, selectedCategory) {
+export async function addTodo(body) {
   const {todo, priority, category} = body
 
   try {
@@ -34,6 +34,19 @@ export async function addTodo(body, enterTodo, selectedPriority, selectedCategor
   return addTodoQuery
   } catch (error) {
     console.error("Error adding todo:", error)
+    throw error
+  }
+}
+
+// Function to remove todo fromm database
+export async function removeTodo(id) {
+  try {
+     const client= await pool.connect()
+     const removeTodoQuery = (await client.query(`DELETE FROM todos WHERE id = $1`, [id]))
+     client.release()
+     return removeTodoQuery
+  } catch (error) {
+    console.error("Error removing todo", error)
     throw error
   }
 }

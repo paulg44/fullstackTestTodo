@@ -2,7 +2,7 @@
 
 import "./DisplayTodos.css";
 import { Container } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 
 function DisplayTodos() {
   // Types for incoming todo's from database
@@ -35,6 +35,17 @@ function DisplayTodos() {
     fetchAllTodos();
   }, []);
 
+    // Function for deleting a todo
+    async function handleDeleteTodo(id: number) {
+   
+
+      await fetch(`api/todo/${id}`,{
+         method: "DELETE",
+    }) 
+    console.log("Successfully removed todo with ID:", id)
+      }
+    
+
   return (
     <Container>
       <h2>Todo List</h2>
@@ -43,7 +54,7 @@ function DisplayTodos() {
           todosData.map((todo) => (
             <li key={todo.id} className={`priority${todo.priority}`}>
               {todo.todo}
-              <button type="button">X</button>
+              <button type="button" onClick={() => handleDeleteTodo(todo.id)}>X</button>
             </li>
           ))}
       </ul>
