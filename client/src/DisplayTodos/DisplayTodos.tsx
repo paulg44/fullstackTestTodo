@@ -16,6 +16,8 @@ function DisplayTodos() {
 
   // State for todos
   const [todosData, setTodosData] = useState<Todo[]>([]);
+  const [editTodoId, setEditTodoId] = useState<number | null>(null)
+  const [editTodo, setEditTodo] = useState(false)
 
   //  Retrieve all todo's from database using a useEffect
   useEffect(() => {
@@ -43,23 +45,57 @@ function DisplayTodos() {
          method: "DELETE",
     }) 
     console.log("Successfully removed todo with ID:", id)
+    }
+
+    // Function for editing a todo
+    async function handleEditTodo(id: number) {
+   setEditTodoId(id)
+    }
+
+    async function handleEditTodoDatabase(id: number, updatedTodo: string) {
+      try {
+        await fetch(`/api.todo/${id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({todo: updatedTodo})
+        })
+        
+      
+      } catch (error) {
+        console.error("Error editing todo", error)
       }
+    }
     
 
   return (
     <Container>
       <h2>Todo List</h2>
       <ul>
-        {Array.isArray(todosData) &&
-          todosData.map((todo) => (
-            <li key={todo.id} className={`priority${todo.priority}`}>
-              {todo.todo}
-              <button type="button" onClick={() => handleDeleteTodo(todo.id)}>X</button>
-            </li>
-          ))}
+      {todosData.map((todo) => (
+          <li key={todo.id} className={`priority${todo.priority}`}>
+            {editTodoId === todo.id ? (
+              <input
+                type="text"
+                value={todo.todo}
+                onChange={(e) => handleEditTodoDatabase(todo.id)}
+              />
+            ) : (
+              <>
+                <span>{todo.todo}</span>
+                <button type="button" onClick={() => handleEditTodo(todo.id)}>
+                  Edit
+                </button>
+                <button type="button" onClick={() => handleDeleteTodo(todo.id)}>
+                  Delete
+                </button>
+              </>
+            )}
+          </li>
+        ))}
       </ul>
     </Container>
-  );
-}
+        )}
 
 export default DisplayTodos;
