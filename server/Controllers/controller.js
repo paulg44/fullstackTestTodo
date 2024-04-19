@@ -48,3 +48,15 @@ export async function removeTodoController(req, res) {
     res.status(500).json({error: "Internal server error"})
   }
 }
+
+// Update todo in database 
+export async function updateTodoController (req, res){
+  try {
+    const data = req.body
+    const todoId = req.params.id
+    const updateTodoInDatabase = await todoModel.updateTodo(data, todoId)
+    res.status(200).json({ success: true, payload: updateTodoInDatabase})
+  } catch(error) {
+    console.error("Internal server error", error)
+  }
+}

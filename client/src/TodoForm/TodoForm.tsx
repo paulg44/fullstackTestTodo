@@ -2,7 +2,7 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "./TodoForm.css";
-import { ChangeEvent, FormEvent, FormEventHandler, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 /* TODO 
   - create form (done)
@@ -52,6 +52,7 @@ function TodoForm() {
       },
       body: JSON.stringify(addNewTodoToDatabase)
     })
+    window.location.reload()
     console.log(`Successfully added new todo`)
   }
 

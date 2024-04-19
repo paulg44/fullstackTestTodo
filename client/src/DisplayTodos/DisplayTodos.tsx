@@ -17,7 +17,7 @@ function DisplayTodos() {
   // State for todos
   const [todosData, setTodosData] = useState<Todo[]>([]);
   const [editTodoId, setEditTodoId] = useState<number | null>(null)
-  const [editTodo, setEditTodo] = useState(false)
+  const [editedTodo, setEditedTodo] = useState("")
 
   //  Retrieve all todo's from database using a useEffect
   useEffect(() => {
@@ -48,21 +48,25 @@ function DisplayTodos() {
     }
 
     // Function for editing a todo
-    async function handleEditTodo(id: number) {
+    async function handleEditTodo(id: number, todo: string) {
    setEditTodoId(id)
+   setEditedTodo(todo)
     }
 
-    async function handleEditTodoDatabase(id: number, updatedTodo: string) {
+    async function handleEditTodoDatabase(id: number) {
       try {
-        await fetch(`/api.todo/${id}`, {
-          method: "PUT",
+        await fetch(`/api/todo/${id}`, {
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({todo: updatedTodo})
+          body: JSON.stringify({editedTodo})
         })
-        
-      
+        const updatedTodos = todosData.map((todo) => 
+        todo.id === id ? {...todo, todo:editedTodo}: todo)
+        setTodosData(updatedTodos)
+        setEditTodoId(null)
+
       } catch (error) {
         console.error("Error editing todo", error)
       }
@@ -76,15 +80,19 @@ function DisplayTodos() {
       {todosData.map((todo) => (
           <li key={todo.id} className={`priority${todo.priority}`}>
             {editTodoId === todo.id ? (
+              <>
               <input
                 type="text"
-                value={todo.todo}
-                onChange={(e) => handleEditTodoDatabase(todo.id)}
+                value={editedTodo}
+                onChange={(e) => setEditedTodo(e.target.value)}
+                autoFocus
               />
+              <button type="button" onClick={() => handleEditTodoDatabase(todo.id)}>Save</button>
+              </>
             ) : (
               <>
                 <span>{todo.todo}</span>
-                <button type="button" onClick={() => handleEditTodo(todo.id)}>
+                <button type="button" onClick={() => handleEditTodo(todo.id, todo.todo)}>
                   Edit
                 </button>
                 <button type="button" onClick={() => handleDeleteTodo(todo.id)}>

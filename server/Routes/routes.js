@@ -16,3 +16,6 @@ todoRoutes.post("/", todoController.addTodoController)
 
 // Route for removing todo
 todoRoutes.delete("/:id", todoController.removeTodoController)
+
+// Route for updating todo
+todoRoutes.patch("/:id", todoController.updateTodoController)

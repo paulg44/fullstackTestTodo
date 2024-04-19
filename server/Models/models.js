@@ -50,3 +50,16 @@ export async function removeTodo(id) {
     throw error
   }
 }
+
+// Function to update todo
+export async function updateTodo(todo, id) {
+  try {
+    const client = await pool.connect()
+    const updateTodoQuery = (await client.query(`UPDATE todos SET todo = $1 WHERE id = $2`, [todo, id]))
+    client.release()
+    return updateTodoQuery
+  } catch (error) {
+    console.error("Error updating todo:", error)
+    throw error
+  }
+}
