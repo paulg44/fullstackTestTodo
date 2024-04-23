@@ -37,27 +37,32 @@ function TodoForm() {
   }
 
   async function handleAddNewTodo(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault()
+    e.preventDefault();
 
     const addNewTodoToDatabase = {
       todo: entertodo,
       priority: selectedPriority,
-      category: selectedCategory
-    }
+      category: selectedCategory,
+    };
 
     await fetch("api/todo", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(addNewTodoToDatabase)
-    })
-    window.location.reload()
-    console.log(`Successfully added new todo`)
+      body: JSON.stringify(addNewTodoToDatabase),
+    });
+    window.location.reload();
+    console.log(`Successfully added new todo`);
   }
 
   return (
-    <Form className="todoForm" style={{ width: "50%" }} onSubmit={handleAddNewTodo}>
+    <Form
+      className="todoForm"
+      style={{ width: "50%" }}
+      onSubmit={handleAddNewTodo}
+      data-testid="form"
+    >
       {/* Enter todo */}
       <Form.Group controlId="formTodo">
         <Form.Label>Enter todo description</Form.Label>
