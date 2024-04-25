@@ -90,7 +90,7 @@ function DisplayTodos() {
             value={selectedOrder}
             onChange={handleSelectedOrder}
           >
-            <option></option>
+            <option />
             <option>Priority</option>
             <option>Category</option>
           </Form.Select>
