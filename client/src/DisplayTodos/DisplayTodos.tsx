@@ -1,7 +1,7 @@
 // Component for displaying todo's
 
 import "./DisplayTodos.css";
-import { Container, Dropdown } from "react-bootstrap";
+import { Container, Form } from "react-bootstrap";
 import { useState, useEffect, ChangeEvent } from "react";
 
 function DisplayTodos() {
@@ -18,6 +18,7 @@ function DisplayTodos() {
   const [todosData, setTodosData] = useState<Todo[]>([]);
   const [editTodoId, setEditTodoId] = useState<number | null>(null);
   const [editedTodo, setEditedTodo] = useState("");
+  const [selectedOrder, setSelectedOrder] = useState("");
 
   //  Retrieve all todo's from database using a useEffect
   useEffect(() => {
@@ -70,16 +71,30 @@ function DisplayTodos() {
     }
   }
 
+  function handleSelectedOrder(e: ChangeEvent<HTMLSelectElement>) {
+    e.preventDefault();
+
+    setSelectedOrder(e.target.value);
+    console.log(selectedOrder);
+  }
+
   return (
     <Container>
       <h2>Todo List</h2>
       <div className="orderBy">
-        <label>Order By</label>
-        <select>
-          <option></option>
-          <option>Priority</option>
-          <option>Category</option>
-        </select>
+        <Form.Group>
+          <Form.Label htmlFor="orderBy">Order By</Form.Label>
+          <Form.Select
+            aria-label="Order By"
+            id="orderBy"
+            value={selectedOrder}
+            onChange={handleSelectedOrder}
+          >
+            <option></option>
+            <option>Priority</option>
+            <option>Category</option>
+          </Form.Select>
+        </Form.Group>
       </div>
       <ul>
         {todosData.map((todo) => (
