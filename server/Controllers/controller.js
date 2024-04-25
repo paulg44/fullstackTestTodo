@@ -26,37 +26,37 @@ export async function getAllTodosController(req, res) {
 // Add todo to list
 export async function addTodoController(req, res) {
   try {
-    const data = req.body
-    const addNewTodo = await todoModel.addTodo(data)
-    console.log(`Success, payload ${addNewTodo.rows}`)
-    res.status(200).json(addNewTodo.rows)
+    const data = req.body;
+    const addNewTodo = await todoModel.addTodo(data);
+    console.log(`Success, payload ${addNewTodo.rows}`);
+    res.status(200).json(addNewTodo.rows);
   } catch (error) {
-    console.error(error)
-    res.status(500).json({error: "Internal server error"})
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
   }
 }
 
-// Remove todo from list 
+// Remove todo from list
 export async function removeTodoController(req, res) {
   try {
     // Was stuck on this for a little while, needed to require the parameter of id to specifically point to the todo that wants deleting
-    const todoId = req.params.id
-     const removeTodoFromList = await todoModel.removeTodo(todoId)
-     res.status(200).json(removeTodoFromList)
+    const todoId = req.params.id;
+    const removeTodoFromList = await todoModel.removeTodo(todoId);
+    res.status(200).json(removeTodoFromList);
   } catch (error) {
-    console.error(error)
-    res.status(500).json({error: "Internal server error"})
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
   }
 }
 
-// Update todo in database 
-export async function updateTodoController (req, res){
+// Update todo in database
+export async function updateTodoController(req, res) {
   try {
-    const data = req.body
-    const todoId = req.params.id
-    const updateTodoInDatabase = await todoModel.updateTodo(data, todoId)
-    res.status(200).json({ success: true, payload: updateTodoInDatabase})
-  } catch(error) {
-    console.error("Internal server error", error)
+    const data = req.body;
+    const todoId = req.params.id;
+    const updateTodoInDatabase = await todoModel.updateTodo(data, todoId);
+    res.status(200).json({ success: true, payload: updateTodoInDatabase });
+  } catch (error) {
+    console.error("Internal server error", error);
   }
 }

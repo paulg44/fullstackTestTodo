@@ -1,6 +1,6 @@
 // Test file for Display Todo's
 
-import { screen, render } from "@testing-library/react";
+import { screen, render, fireEvent, waitFor } from "@testing-library/react";
 import DisplayTodos from "./DisplayTodos";
 
 /* List of Tests 
@@ -19,4 +19,15 @@ describe("List renders and buttons are clickable", () => {
 
     expect(screen.getByRole("list")).toBeInTheDocument();
   });
+
+  //   it("edit button is clickable and li turns into an input", () => {
+  //     render(<DisplayTodos />);
+
+  //     const editBtn = screen.getByRole("button", { name: "Edit" });
+
+  //     fireEvent.click(editBtn);
+
+  //     const listItem = screen.getByTestId("displayTodoInput");
+  //     expect(listItem).toBeInTheDocument();
+  //   });
 });
