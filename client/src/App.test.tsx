@@ -1,8 +1,8 @@
 // Test file for whole application
 
-import { screen, render, fireEvent, waitFor, getByRole } from "@testing-library/react";
+import { screen, render, fireEvent } from "@testing-library/react";
 import App from "./App";
-import { Http2ServerRequest, Http2ServerResponse } from "http2";
+
 
 /* Tests 
     - App renders both form and display
@@ -30,11 +30,15 @@ describe("App components render", () => {
 
 describe("Mock requests", () => {
   it("should display fetched data", async () => {
+    // Mock promise from database and store data
     const mockJsonPromise = (data: object) => Promise.resolve(data)
+    // Mock fetched data, simulate response
     const mockFetchPromise = (response: object) => Promise.resolve({json: () => mockJsonPromise(response)}) 
 
-    jest.spyOn(global, "fetch").mockImplementation((route) => {
+    // Mock a fetch request if it has a todo in string return the promise as mocked data
+    jest.spyOn(global, "fetch").mockImplementation((route: RequestInfo) => {
       if(typeof route === "string" && route.includes("todo")) {
+    
       return mockFetchPromise([
         {
           id: 1,
@@ -49,12 +53,15 @@ describe("Mock requests", () => {
               category: "work"
       }
      ])} 
+     return undefined
      
   })
     render(<App />)
 
+    // Find todo on screen
     const todo = await screen.findByText("Mock todo fetch 1")
 
+    // Expect it to be in the document
     expect(todo).toBeInTheDocument()
   })
 })

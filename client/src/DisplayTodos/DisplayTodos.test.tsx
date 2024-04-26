@@ -23,6 +23,9 @@ describe("List renders and buttons are clickable",  () => {
     it("edit button is clickable and li turns into an input", async  () => {
       render(<DisplayTodos />);
 
-
+      // await waitFor(() => {
+      //   const editBtn = screen.getByRole("button", {name: /Edit/i})
+      //   expect(editBtn).toBeInTheDocument()
+      // }, {timeout: 10000})
     });
 });
