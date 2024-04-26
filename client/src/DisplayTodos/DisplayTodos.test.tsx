@@ -13,21 +13,16 @@ import DisplayTodos from "./DisplayTodos";
 */
 
 // Test list renders and buttons are clickable
-describe("List renders and buttons are clickable", () => {
+describe("List renders and buttons are clickable",  () => {
   it("list renders", () => {
     render(<DisplayTodos />);
 
     expect(screen.getByRole("list")).toBeInTheDocument();
   });
 
-  //   it("edit button is clickable and li turns into an input", () => {
-  //     render(<DisplayTodos />);
+    it("edit button is clickable and li turns into an input", async  () => {
+      render(<DisplayTodos />);
 
-  //     const editBtn = screen.getByRole("button", { name: "Edit" });
 
-  //     fireEvent.click(editBtn);
-
-  //     const listItem = screen.getByTestId("displayTodoInput");
-  //     expect(listItem).toBeInTheDocument();
-  //   });
+    });
 });
