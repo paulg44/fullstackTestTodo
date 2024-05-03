@@ -1,6 +1,6 @@
 // Test file for whole application
 
-import { screen, render, fireEvent } from "@testing-library/react";
+import { screen, render, fireEvent, waitFor } from "@testing-library/react";
 import App from "./App";
 
 
@@ -29,15 +29,20 @@ describe("App components render", () => {
 });
 
 describe("Mock requests", () => {
+  // Clear previous mocks
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
   it("should display fetched data", async () => {
     // Mock promise from database and store data
-    const mockJsonPromise = (data: object) => Promise.resolve(data)
+    const mockJsonPromise = (data) => Promise.resolve(data)
     // Mock fetched data, simulate response
-    const mockFetchPromise = (response: object) => Promise.resolve({json: () => mockJsonPromise(response)}) 
+    const mockFetchPromise = (response) => Promise.resolve({json: () => mockJsonPromise(response)}) 
 
     // Mock a fetch request if it has a todo in string return the promise as mocked data
-    jest.spyOn(global, "fetch").mockImplementation((route: RequestInfo) => {
-      if(typeof route === "string" && route.includes("todo")) {
+    jest.spyOn(global, "fetch").mockImplementation((route) => {
+      if(route.includes("todo")) {
     
       return mockFetchPromise([
         {
@@ -63,5 +68,26 @@ describe("Mock requests", () => {
 
     // Expect it to be in the document
     expect(todo).toBeInTheDocument()
+  })
+
+  it("should delete a todo", async () => {
+    // Mock promise from database and store data
+    const mockJsonPromise = (data) => Promise.resolve(data)
+    // Mock fetched data, simulate response
+    const mockFetchPromise = (response) => Promise.resolve({json: () => mockJsonPromise(response)}) 
+
+      jest.spyOn(global, "fetch").mockImplementation((url, config) => {
+        if(url === "api/todo/1" && config?.method === "DELETE") {
+          return mockFetchPromise([])
+        }
+        return undefined
+      })
+
+      render(<App/>)
+
+   
+        const todo = screen.queryByText("Mock toto fetch 1")
+        expect(todo).not.toBeInTheDocument()
+  
   })
 })
