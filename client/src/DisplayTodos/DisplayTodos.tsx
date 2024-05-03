@@ -1,8 +1,8 @@
 // Component for displaying todo's
 
 import "./DisplayTodos.css";
-import { Container, Form } from "react-bootstrap";
-import { useState, useEffect, ChangeEvent } from "react";
+import { Container } from "react-bootstrap";
+import { useState, useEffect } from "react";
 
 function DisplayTodos() {
   // Types for incoming todo's from database
@@ -18,7 +18,8 @@ function DisplayTodos() {
   const [todosData, setTodosData] = useState<Todo[]>([]);
   const [editTodoId, setEditTodoId] = useState<number | null>(null);
   const [editedTodo, setEditedTodo] = useState("");
-  const [selectedOrder, setSelectedOrder] = useState("");
+  // const [selectedOrder, setSelectedOrder] = useState("")  
+ 
 
   //  Retrieve all todo's from database using a useEffect
   useEffect(() => {
@@ -71,17 +72,17 @@ function DisplayTodos() {
     }
   }
 
-  function handleSelectedOrder(e: ChangeEvent<HTMLSelectElement>) {
-    e.preventDefault();
+  // function handleSelectedOrder(e: ChangeEvent<HTMLSelectElement>) {
+  //   e.preventDefault();
 
-    setSelectedOrder(e.target.value);
-    console.log(selectedOrder);
-  }
+  //   setSelectedOrder(e.target.value);
+  //   console.log(selectedOrder);
+  // }
 
   return (
     <Container>
       <h2>Todo List</h2>
-      <div className="orderBy">
+      {/* <div className="orderBy">
         <Form.Group>
           <Form.Label htmlFor="orderBy">Order By</Form.Label>
           <Form.Select
@@ -95,7 +96,7 @@ function DisplayTodos() {
             <option>Category</option>
           </Form.Select>
         </Form.Group>
-      </div>
+      </div> */}
       <ul>
         {todosData.map((todo) => (
           <li key={todo.id} className={`priority${todo.priority}`}>

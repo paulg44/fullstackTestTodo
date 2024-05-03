@@ -9,7 +9,7 @@ export async function getAllTodos() {
     // Acquire a connection from pool
     const client = await pool.connect();
     // Query the database (The .rows is a very important part of this function. I was returning all the data without it. I only wanted the rows from the table)
-    const getAllTodosQuery = (await client.query("SELECT * FROM todos")).rows;
+    const getAllTodosQuery = (await client.query("SELECT * FROM todos ORDER BY todo DESC")).rows;
     //   Release client connection
     client.release();
     // Return query
