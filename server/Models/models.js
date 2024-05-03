@@ -21,45 +21,53 @@ export async function getAllTodos() {
   }
 }
 
-
 // Function to add a todo to the database
 export async function addTodo(body) {
-  const {todo, priority, category} = body
+  const { todo, priority, category } = body;
 
   try {
-    const client = await pool.connect()
-    const addTodoQuery = (await client.query(`INSERT INTO todos (todo, priority, category) VALUES ($1, $2, $3)`, [todo, priority, category]))
-  
-  client.release()
-  return addTodoQuery
+    const client = await pool.connect();
+    const addTodoQuery = await client.query(
+      `INSERT INTO todos (todo, priority, category) VALUES ($1, $2, $3)`,
+      [todo, priority, category]
+    );
+
+    client.release();
+    return addTodoQuery;
   } catch (error) {
-    console.error("Error adding todo:", error)
-    throw error
+    console.error("Error adding todo:", error);
+    throw error;
   }
 }
 
 // Function to remove todo fromm database
 export async function removeTodo(id) {
   try {
-     const client= await pool.connect()
-     const removeTodoQuery = (await client.query(`DELETE FROM todos WHERE id = $1`, [id]))
-     client.release()
-     return removeTodoQuery
+    const client = await pool.connect();
+    const removeTodoQuery = await client.query(
+      `DELETE FROM todos WHERE id = $1`,
+      [id]
+    );
+    client.release();
+    return removeTodoQuery;
   } catch (error) {
-    console.error("Error removing todo", error)
-    throw error
+    console.error("Error removing todo", error);
+    throw error;
   }
 }
 
 // Function to update todo
 export async function updateTodo(todo, id) {
   try {
-    const client = await pool.connect()
-    const updateTodoQuery = (await client.query(`UPDATE todos SET todo = $1 WHERE id = $2`, [todo, id]))
-    client.release()
-    return updateTodoQuery
+    const client = await pool.connect();
+    const updateTodoQuery = await client.query(
+      `UPDATE todos SET todo = $1 WHERE id = $2`,
+      [todo, id]
+    );
+    client.release();
+    return updateTodoQuery;
   } catch (error) {
-    console.error("Error updating todo:", error)
-    throw error
+    console.error("Error updating todo:", error);
+    throw error;
   }
 }

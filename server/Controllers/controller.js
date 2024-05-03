@@ -52,7 +52,7 @@ export async function removeTodoController(req, res) {
 // Update todo in database
 export async function updateTodoController(req, res) {
   try {
-    const data = req.body;
+    const data = req.body.payload;
     const todoId = req.params.id;
     const updateTodoInDatabase = await todoModel.updateTodo(data, todoId);
     res.status(200).json({ success: true, payload: updateTodoInDatabase });

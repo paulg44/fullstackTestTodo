@@ -59,7 +59,7 @@ function DisplayTodos() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ editedTodo }),
+        body: JSON.stringify({ payload: editedTodo }),
       });
       const updatedTodos = todosData.map((todo) =>
         todo.id === id ? { ...todo, todo: editedTodo } : todo
